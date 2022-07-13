@@ -18,23 +18,23 @@ Business models
 
 ### `Model-COWBOOKSTATUS` business model
 
-[MODEL:Model-COWBOOKSTATUS]
+<img src="[MODEL:Model-COWBOOKSTATUS]"/>
 
 ### `Model-COWREQREQUEST` business model
 
-[MODEL:Model-COWREQREQUEST]
+<img src="[MODEL:Model-COWREQREQUEST]"/>
 
 ### `Model-COWREQSTATUS` business model
 
-[MODEL:Model-COWREQSTATUS]
+<img src="[MODEL:Model-COWREQSTATUS]"/>
 
 ### `Model-COWWORREQUEST` business model
 
-[MODEL:Model-COWWORREQUEST]
+<img src="[MODEL:Model-COWWORREQUEST]"/>
 
 ### `ModelCoworking` business model
 
-[MODEL:ModelCoworking]
+<img src="[MODEL:ModelCoworking]"/>
 
 [OBJECTDOC:CowBooking]
 

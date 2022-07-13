@@ -11469,10 +11469,10 @@
 	<name>MDDocument</name>
 	<action>upsert</action>
 	<data>
-		<mdDocCode>COWORKING_20220713144724</mdDocCode>
-		<mdDocURL><![CDATA[/ui/ext/MDViewer?doc=COWORKING_20220713144724]]></mdDocURL>
+		<mdDocCode>COWORKING</mdDocCode>
+		<mdDocURL><![CDATA[/ui/ext/MDViewer?doc=COWORKING]]></mdDocURL>
 		<mdDocTitle>Coworking module documentation</mdDocTitle>
-		<mdDocFile>docs/MDDocument/COWORKING_20220713144724.md</mdDocFile>
+		<mdDocFile>docs/MDDocument/COWORKING.md</mdDocFile>
 		<mdDocPublished>0</mdDocPublished>
 		<row_module_id.mdl_name>Coworking</row_module_id.mdl_name>
 	</data>
