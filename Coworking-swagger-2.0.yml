@@ -1,0 +1,3502 @@
+#  ___ _            _ _    _ _    __
+# / __(_)_ __  _ __| (_)__(_) |_ /_/
+# \__ \ | '  \| '_ \ | / _| |  _/ -_)
+# |___/_|_|_|_| .__/_|_\__|_|\__\___|
+#             |_| Module: Coworking 0.1
+paths:
+  /rest/CowRoom:
+    get:
+      summary: Search CowRoom business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowroom-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowRoom'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: cowRoomNumber
+        description: Search filter for Number
+        type: string
+        required: false
+      - in: query
+        name: cowRoomFloor
+        description: Search filter for Floor
+        type: string
+        required: false
+      - in: query
+        name: cowRoomCapacity
+        description: Search filter for Capacity
+        type: integer
+        required: false
+      - in: query
+        name: cowRoomBuiId
+        description: Search filter for Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowRoomBuiId__cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowRoomBuiId__cowBuiAdress
+        description: Search filter for Adress
+        type: string
+        required: false
+      - in: query
+        name: cowRoomBuiId__cowBuiOpeningTime
+        description: Search filter for Opening time
+        type: string
+        required: false
+      - in: query
+        name: cowRoomBuiId__cowBuiClosingTime
+        description: Search filter for Closing time
+        type: string
+        required: false
+      tags:
+      - CowRoom
+  /login:
+    get:
+      summary: Login (obtain bearer token)
+      security:
+      - basicAuth: []
+      produces:
+      - text/plain
+      - application/json
+      operationId: login
+      responses:
+        '200':
+          description: Successful login
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+      parameters:
+      - in: query
+        name: _output
+        description: Optional output format
+        type: string
+        required: false
+        enum:
+        - json
+        - oauth2
+        - token
+      tags:
+      - session
+  /rest/CowBooking:
+    get:
+      summary: Search CowBooking business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbooking-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowBooking'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: _crosstab
+        description: Apply pivot table
+        type: string
+        required: false
+        enum:
+        - CowBookingsTable
+      - in: query
+        name: _crosstabcubes
+        description: Pivot table data as cubes?
+        type: boolean
+        required: false
+      - in: query
+        name: cowBookBookingNumber
+        description: Search filter for Booking Number
+        type: integer
+        required: false
+      - in: query
+        name: cowBookCusId
+        description: Search filter for Customers
+        type: string
+        required: false
+      - in: query
+        name: cowBookCusId__cowCusFirstName
+        description: Search filter for First Name
+        type: string
+        required: false
+      - in: query
+        name: cowBookCusId__cowCusName
+        description: Search filter for Last Name
+        type: string
+        required: false
+      - in: query
+        name: cowBookCusId__cowCusBirthDate
+        description: Search filter for Birth Date
+        type: string
+        required: false
+      - in: query
+        name: cowBookCusId__cowCusPhoneNumber
+        description: Search filter for Phone number
+        type: string
+        required: false
+      - in: query
+        name: cowBookCusId__cowCusMail
+        description: Search filter for E-mail adress
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId
+        description: Search filter for Rooms
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId__cowRoomFloor
+        description: Search filter for Floor
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId__cowRoomBuiId
+        description: Search filter for Rooms Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId__cowRoomBuiId__cowBuiOpeningTime
+        description: Search filter for Opening time
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId__cowRoomBuiId__cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId__cowRoomBuiId__cowBuiAdress
+        description: Search filter for Adress
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId__cowRoomBuiId__cowBuiClosingTime
+        description: Search filter for Closing time
+        type: string
+        required: false
+      - in: query
+        name: cowBookRoomId__cowRoomNumber
+        description: Search filter for Room
+        type: string
+        required: false
+      - in: query
+        name: cowBookStatus
+        description: Search filter for Status
+        type: string
+        required: false
+        enum:
+        - PENDING
+        - CONFIRM
+        - CANCEL
+      - in: query
+        name: cowBookRoomId__cowRoomCapacity
+        description: Search filter for Capacity
+        type: integer
+        required: false
+      - in: query
+        name: cowBookDate
+        description: Search filter for Date
+        type: string
+        required: false
+      - in: query
+        name: cowBookBeginningTime
+        description: Search filter for BeginningTime
+        type: string
+        required: false
+      - in: query
+        name: cowBookEndingTime
+        description: Search filter for Ending Time
+        type: string
+        required: false
+      - in: query
+        name: cowBookNotDisponible
+        description: Search filter for Availability
+        type: string
+        required: false
+      tags:
+      - CowBooking
+  /rest/CowOptionsLine:
+    get:
+      summary: Search CowOptionsLine business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptionsline-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowOptionsLine'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: cowOptlBookId
+        description: Search filter for Booking
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookBookingNumber
+        description: Search filter for Booking Number
+        type: integer
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookCusId
+        description: Search filter for Booking Customers
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookCusId__cowCusName
+        description: Search filter for Last Name
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookCusId__cowCusBirthDate
+        description: Search filter for Birth Date
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookCusId__cowCusFirstName
+        description: Search filter for First Name
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookRoomId
+        description: Search filter for Booking Rooms
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookRoomId__cowRoomFloor
+        description: Search filter for Rooms Floor
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookRoomId__cowRoomBuiId
+        description: Search filter for Booking Rooms Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookRoomId__cowRoomNumber
+        description: Search filter for Room Number
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookRoomId__cowRoomBuiId__cowBuiAdress
+        description: Search filter for Adress
+        type: string
+        required: false
+      - in: query
+        name: cowOptlBookId__cowBookRoomId__cowRoomBuiId__cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId
+        description: Search filter for Eligible Options
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliRoomId
+        description: Search filter for Eligible Options Cow roomopt room id
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliRoomId__cowRoomNumber
+        description: Search filter for Room Number
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliRoomId__cowRoomFloor
+        description: Search filter for Floor
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliRoomId__cowRoomBuiId
+        description: Search filter for Eligible Options Cow roomopt room id Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliRoomId__cowRoomBuiId__cowBuiAdress
+        description: Search filter for Adress
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliRoomId__cowRoomBuiId__cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliOptId
+        description: Search filter for Eligible Options Cow roomopt opt id
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliOptId__cowOptOptionName
+        description: Search filter for Option Name
+        type: string
+        required: false
+      - in: query
+        name: cowOptlEliId__cowEliOptId__cowOptDescription
+        description: Search filter for Description
+        type: string
+        required: false
+      tags:
+      - CowOptionsLine
+  /rest/CowEligibleOptions:
+    get:
+      summary: Search CowEligibleOptions business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-coweligibleoptions-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowEligibleOptions'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: cowEliRoomId__cowRoomNumber
+        description: Search filter for Number
+        type: string
+        required: false
+      - in: query
+        name: cowEliRoomId
+        description: Search filter for Cow roomopt room id
+        type: string
+        required: false
+      - in: query
+        name: cowEliRoomId__cowRoomFloor
+        description: Search filter for Room floor
+        type: string
+        required: false
+      - in: query
+        name: cowEliRoomId__cowRoomBuiId
+        description: Search filter for Cow roomopt room id Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowEliRoomId__cowRoomBuiId__cowBuiAdress
+        description: Search filter for Buildings Adress
+        type: string
+        required: false
+      - in: query
+        name: cowEliRoomId__cowRoomBuiId__cowBuiName
+        description: Search filter for Nom
+        type: string
+        required: false
+      - in: query
+        name: cowEliOptId
+        description: Search filter for Cow roomopt opt id
+        type: string
+        required: false
+      - in: query
+        name: cowEliOptId__cowOptOptionName
+        description: Search filter for Option Name
+        type: string
+        required: false
+      - in: query
+        name: cowEliOptId__cowOptDescription
+        description: Search filter for Description
+        type: string
+        required: false
+      tags:
+      - CowEligibleOptions
+  /rest/CowBuilding/{row_id}:
+    post:
+      summary: Create a new CowBuildingbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbuilding-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowBuilding'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowBuilding'
+        in: body
+        name: body
+      tags:
+      - CowBuilding
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowBuilding business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbuilding-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowBuilding'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowBuilding
+    delete:
+      summary: Delete a CowBuilding business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbuilding-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowBuilding
+    put:
+      summary: Update a CowBuildingbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbuilding-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowBuilding'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowBuilding'
+        in: body
+        name: body
+      tags:
+      - CowBuilding
+      consumes:
+      - application/json
+  /rest/CowOptionsLine/{row_id}:
+    post:
+      summary: Create a new CowOptionsLinebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptionsline-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowOptionsLine'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowOptionsLine'
+        in: body
+        name: body
+      tags:
+      - CowOptionsLine
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowOptionsLine business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptionsline-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowOptionsLine'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowOptionsLine
+    delete:
+      summary: Delete a CowOptionsLine business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptionsline-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowOptionsLine
+    put:
+      summary: Update a CowOptionsLinebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptionsline-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowOptionsLine'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowOptionsLine'
+        in: body
+        name: body
+      tags:
+      - CowOptionsLine
+      consumes:
+      - application/json
+  /rest/CowRoom/{row_id}:
+    post:
+      summary: Create a new CowRoombusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowroom-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowRoom'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowRoom'
+        in: body
+        name: body
+      tags:
+      - CowRoom
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowRoom business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowroom-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowRoom'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowRoom
+    delete:
+      summary: Delete a CowRoom business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowroom-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowRoom
+    put:
+      summary: Update a CowRoombusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowroom-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowRoom'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowRoom'
+        in: body
+        name: body
+      tags:
+      - CowRoom
+      consumes:
+      - application/json
+  /rest/CowCustomers:
+    get:
+      summary: Search CowCustomers business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowcustomers-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowCustomers'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: cowCusFirstName
+        description: Search filter for First Name
+        type: string
+        required: false
+      - in: query
+        name: cowCusName
+        description: Search filter for Last Name
+        type: string
+        required: false
+      - in: query
+        name: cowCusBirthDate
+        description: Search filter for Birth Date
+        type: string
+        required: false
+      - in: query
+        name: cowCusMail
+        description: Search filter for E-mail adress
+        type: string
+        required: false
+      - in: query
+        name: cowCusPhoneNumber
+        description: Search filter for Phone number
+        type: string
+        required: false
+      - in: query
+        name: cowCusPassword
+        description: Search filter for Password
+        type: string
+        required: false
+      tags:
+      - CowCustomers
+  /rest/CowPrivateSpace/{row_id}:
+    post:
+      summary: Create a new CowPrivateSpacebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowprivatespace-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowPrivateSpace'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowPrivateSpace'
+        in: body
+        name: body
+      tags:
+      - CowPrivateSpace
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowPrivateSpace business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowprivatespace-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowPrivateSpace'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowPrivateSpace
+    delete:
+      summary: Delete a CowPrivateSpace business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowprivatespace-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowPrivateSpace
+    put:
+      summary: Update a CowPrivateSpacebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowprivatespace-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowPrivateSpace'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowPrivateSpace'
+        in: body
+        name: body
+      tags:
+      - CowPrivateSpace
+      consumes:
+      - application/json
+  /rest/CowBuilding:
+    get:
+      summary: Search CowBuilding business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbuilding-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowBuilding'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowBuiAdress
+        description: Search filter for Adress
+        type: string
+        required: false
+      - in: query
+        name: cowBuiOpeningTime
+        description: Search filter for Opening time
+        type: string
+        required: false
+      - in: query
+        name: cowBuiClosingTime
+        description: Search filter for Closing time
+        type: string
+        required: false
+      - in: query
+        name: cowBuiPicture
+        description: Search filter for Picture
+        type: string
+        required: false
+      tags:
+      - CowBuilding
+  /rest/CowOptions:
+    get:
+      summary: Search CowOptions business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptions-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowOptions'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: cowOptOptionName
+        description: Search filter for Option Name
+        type: string
+        required: false
+      - in: query
+        name: cowOptDescription
+        description: Search filter for Description
+        type: string
+        required: false
+      tags:
+      - CowOptions
+  /rest/CowWorkspace:
+    get:
+      summary: Search CowWorkspace business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowworkspace-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowWorkspace'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: _crosstab
+        description: Apply pivot table
+        type: string
+        required: false
+        enum:
+        - CowWorkspaceTable
+      - in: query
+        name: _crosstabcubes
+        description: Pivot table data as cubes?
+        type: boolean
+        required: false
+      - in: query
+        name: cowWorSeatNumber
+        description: Search filter for Seat Number
+        type: string
+        required: false
+      - in: query
+        name: cowWorAvailability
+        description: Search filter for Availaible
+        type: boolean
+        required: false
+      - in: query
+        name: cowWorStatus
+        description: Search filter for Status
+        type: string
+        required: false
+        enum:
+        - PUBLIC
+        - PRIVATE
+      - in: query
+        name: cowWorBuiId
+        description: Search filter for Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowWorBuiId__cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowWorBuiId__cowBuiAdress
+        description: Search filter for Buildings Adress
+        type: string
+        required: false
+      tags:
+      - CowWorkspace
+  /rest/CowCustomers/{row_id}:
+    post:
+      summary: Create a new CowCustomersbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowcustomers-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowCustomers'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowCustomers'
+        in: body
+        name: body
+      tags:
+      - CowCustomers
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowCustomers business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowcustomers-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowCustomers'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowCustomers
+    delete:
+      summary: Delete a CowCustomers business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowcustomers-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowCustomers
+    put:
+      summary: Update a CowCustomersbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowcustomers-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowCustomers'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowCustomers'
+        in: body
+        name: body
+      tags:
+      - CowCustomers
+      consumes:
+      - application/json
+  /rest/CowEligibleOptions/{row_id}:
+    post:
+      summary: Create a new CowEligibleOptionsbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-coweligibleoptions-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowEligibleOptions'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowEligibleOptions'
+        in: body
+        name: body
+      tags:
+      - CowEligibleOptions
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowEligibleOptions business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-coweligibleoptions-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowEligibleOptions'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowEligibleOptions
+    delete:
+      summary: Delete a CowEligibleOptions business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-coweligibleoptions-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowEligibleOptions
+    put:
+      summary: Update a CowEligibleOptionsbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-coweligibleoptions-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowEligibleOptions'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowEligibleOptions'
+        in: body
+        name: body
+      tags:
+      - CowEligibleOptions
+      consumes:
+      - application/json
+  /rest/CowRequest:
+    get:
+      summary: Search CowRequest business object records or get contextualized metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowrequest-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowRequest'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: cowReqWorId
+        description: Search filter for Workspace
+        type: string
+        required: false
+      - in: query
+        name: cowReqWorId__cowWorSeatNumber
+        description: Search filter for Seat Number
+        type: string
+        required: false
+      - in: query
+        name: cowReqWorId__cowWorStatus
+        description: Search filter for Status
+        type: string
+        required: false
+        enum:
+        - PUBLIC
+        - PRIVATE
+      - in: query
+        name: cowReqWorId__cowWorAvailability
+        description: Search filter for Availaible
+        type: boolean
+        required: false
+      - in: query
+        name: cowReqWorId__cowWorBuiId
+        description: Search filter for Workspace Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowReqWorId__cowWorBuiId__cowBuiAdress
+        description: Search filter for Adress
+        type: string
+        required: false
+      - in: query
+        name: cowReqWorId__cowWorBuiId__cowBuiName
+        description: Search filter for Name
+        type: string
+        required: false
+      - in: query
+        name: cowReqCusId
+        description: Search filter for Customers
+        type: string
+        required: false
+      - in: query
+        name: cowReqCusId__cowCusFirstName
+        description: Search filter for First Name
+        type: string
+        required: false
+      - in: query
+        name: cowReqCusId__cowCusName
+        description: Search filter for Last Name
+        type: string
+        required: false
+      - in: query
+        name: cowReqCusId__cowCusBirthDate
+        description: Search filter for Birth Date
+        type: string
+        required: false
+      - in: query
+        name: cowReqCusId__cowCusPhoneNumber
+        description: Search filter for Phone number
+        type: string
+        required: false
+      - in: query
+        name: cowReqCusId__cowCusMail
+        description: Search filter for E-mail adress
+        type: string
+        required: false
+      - in: query
+        name: cowReqStatus
+        description: Search filter for Status
+        type: string
+        required: false
+        enum:
+        - WAITLIST
+        - ACCEPTED
+        - CANCELLED
+      tags:
+      - CowRequest
+  /rest/CowRequest/{row_id}:
+    post:
+      summary: Create a new CowRequestbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowrequest-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowRequest'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowRequest'
+        in: body
+        name: body
+      tags:
+      - CowRequest
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowRequest business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowrequest-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowRequest'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowRequest
+    delete:
+      summary: Delete a CowRequest business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowrequest-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowRequest
+    put:
+      summary: Update a CowRequestbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowrequest-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowRequest'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowRequest'
+        in: body
+        name: body
+      tags:
+      - CowRequest
+      consumes:
+      - application/json
+  /rest/CowPublicSpace:
+    get:
+      summary: Search CowPublicSpace business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowpublicspace-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowPublicSpace'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: _crosstab
+        description: Apply pivot table
+        type: string
+        required: false
+        enum:
+        - CowWorkspaceTable
+      - in: query
+        name: _crosstabcubes
+        description: Pivot table data as cubes?
+        type: boolean
+        required: false
+      - in: query
+        name: cowWorSeatNumber
+        description: Search filter for Seat Number
+        type: string
+        required: false
+      - in: query
+        name: cowWorAvailability
+        description: Search filter for Availaible
+        type: boolean
+        required: false
+      - in: query
+        name: cowWorStatus
+        description: Search filter for Status
+        type: string
+        required: false
+        enum:
+        - PUBLIC
+        - PRIVATE
+      - in: query
+        name: cowWorBuiId
+        description: Search filter for Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowWorBuiId__cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowWorBuiId__cowBuiAdress
+        description: Search filter for Buildings Adress
+        type: string
+        required: false
+      tags:
+      - CowPublicSpace
+  /rest/CowWorkspace/{row_id}:
+    post:
+      summary: Create a new CowWorkspacebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowworkspace-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowWorkspace'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowWorkspace'
+        in: body
+        name: body
+      tags:
+      - CowWorkspace
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowWorkspace business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowworkspace-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowWorkspace'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowWorkspace
+    delete:
+      summary: Delete a CowWorkspace business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowworkspace-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowWorkspace
+    put:
+      summary: Update a CowWorkspacebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowworkspace-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowWorkspace'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowWorkspace'
+        in: body
+        name: body
+      tags:
+      - CowWorkspace
+      consumes:
+      - application/json
+  /logout:
+    get:
+      summary: Logout (revoke bearer token)
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: logout
+      responses:
+        '200':
+          description: Successfull logout
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+      tags:
+      - session
+  /rest/CowOptions/{row_id}:
+    post:
+      summary: Create a new CowOptionsbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptions-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowOptions'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowOptions'
+        in: body
+        name: body
+      tags:
+      - CowOptions
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowOptions business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptions-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowOptions'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowOptions
+    delete:
+      summary: Delete a CowOptions business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptions-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowOptions
+    put:
+      summary: Update a CowOptionsbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowoptions-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowOptions'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowOptions'
+        in: body
+        name: body
+      tags:
+      - CowOptions
+      consumes:
+      - application/json
+  /:
+    get:
+      summary: Get user session information
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: info
+      responses:
+        '200':
+          description: Success in getting user session information
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+      parameters:
+      - in: query
+        name: texts
+        description: Texts?
+        type: boolean
+        required: false
+      tags:
+      - session
+  /rest/CowPublicSpace/{row_id}:
+    post:
+      summary: Create a new CowPublicSpacebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowpublicspace-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowPublicSpace'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowPublicSpace'
+        in: body
+        name: body
+      tags:
+      - CowPublicSpace
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowPublicSpace business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowpublicspace-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowPublicSpace'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowPublicSpace
+    delete:
+      summary: Delete a CowPublicSpace business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowpublicspace-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowPublicSpace
+    put:
+      summary: Update a CowPublicSpacebusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowpublicspace-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowPublicSpace'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowPublicSpace'
+        in: body
+        name: body
+      tags:
+      - CowPublicSpace
+      consumes:
+      - application/json
+  /rest/CowPrivateSpace:
+    get:
+      summary: Search CowPrivateSpace business object records or get contextualized
+        metadata
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowprivatespace-search
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ArrayOfCowPrivateSpace'
+          description: Success in searching business object records (or in getting
+            contextualized business object metadata, documentation, ...)
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: query
+        name: _metadata
+        description: Metadata?
+        type: boolean
+        required: false
+      - in: query
+        name: _count
+        description: Count?
+        type: boolean
+        required: false
+      - in: query
+        name: _doc
+        description: Documentation?
+        type: boolean
+        required: false
+      - in: query
+        name: _crosstab
+        description: Apply pivot table
+        type: string
+        required: false
+        enum:
+        - CowWorkspaceTable
+      - in: query
+        name: _crosstabcubes
+        description: Pivot table data as cubes?
+        type: boolean
+        required: false
+      - in: query
+        name: cowWorSeatNumber
+        description: Search filter for Seat Number
+        type: string
+        required: false
+      - in: query
+        name: cowWorAvailability
+        description: Search filter for Availaible
+        type: boolean
+        required: false
+      - in: query
+        name: cowWorStatus
+        description: Search filter for Status
+        type: string
+        required: false
+        enum:
+        - PUBLIC
+        - PRIVATE
+      - in: query
+        name: cowWorBuiId
+        description: Search filter for Buildings
+        type: string
+        required: false
+      - in: query
+        name: cowWorBuiId__cowBuiName
+        description: Search filter for Building
+        type: string
+        required: false
+      - in: query
+        name: cowWorBuiId__cowBuiAdress
+        description: Search filter for Buildings Adress
+        type: string
+        required: false
+      tags:
+      - CowPrivateSpace
+  /rest/CowBooking/{row_id}:
+    post:
+      summary: Create a new CowBookingbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbooking-create
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowBooking'
+          description: Success in creating a new business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowBooking'
+        in: body
+        name: body
+      tags:
+      - CowBooking
+      consumes:
+      - application/json
+    get:
+      summary: Get a CowBooking business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbooking-get
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowBooking'
+          description: Success in getting a single business object record
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - in: query
+        name: _inline_documents
+        description: Inline documents?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_thumbnails
+        description: Inline documents' thumbnails?
+        type: boolean
+        required: false
+      - in: query
+        name: _inline_objects
+        description: Inline objects?
+        type: boolean
+        required: false
+      tags:
+      - CowBooking
+    delete:
+      summary: Delete a CowBooking business object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbooking-delete
+      responses:
+        '200':
+          description: Success in deleting a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      tags:
+      - CowBooking
+    put:
+      summary: Update a CowBookingbusiness object record
+      security:
+      - bearerAuth: []
+      produces:
+      - application/json
+      operationId: obj-cowbooking-update
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/CowBooking'
+          description: Success in updating a business object record
+        '400':
+          schema:
+            $ref: '#/definitions/Error400'
+          description: Bad request
+        '401':
+          schema:
+            $ref: '#/definitions/Error401'
+          description: Unauthorized
+        '500':
+          schema:
+            $ref: '#/definitions/Error500'
+          description: Internal server error
+        '404':
+          schema:
+            $ref: '#/definitions/Error404'
+          description: Not found
+      parameters:
+      - in: path
+        name: row_id
+        description: Row ID (or empty or _ for all row IDs)
+        type: string
+        required: true
+      - schema:
+          $ref: '#/definitions/CowBooking'
+        in: body
+        name: body
+      tags:
+      - CowBooking
+      consumes:
+      - application/json
+securityDefinitions:
+  basicAuth:
+    type: basic
+  bearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+definitions:
+  Error404:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 404
+  CowOptionsLine:
+    type: object
+    properties:
+      cowOptlBookId__cowBookCusId__cowCusName:
+        description: Last Name
+        type: string
+      cowOptlEliId__cowEliRoomId__cowRoomNumber:
+        description: Room Number
+        type: string
+      cowOptlBookId__cowBookRoomId__cowRoomBuiId:
+        description: Booking Rooms Buildings
+        type: string
+      cowOptlEliId:
+        description: Eligible Options
+        type: string
+      cowOptlBookId__cowBookRoomId__cowRoomBuiId__cowBuiName:
+        description: Building
+        type: string
+      cowOptlBookId__cowBookBookingNumber:
+        description: Booking Number
+        type: integer
+      cowOptlBookId__cowBookRoomId__cowRoomFloor:
+        description: Rooms Floor
+        type: string
+      cowOptlBookId__cowBookRoomId:
+        description: Booking Rooms
+        type: string
+      cowOptlEliId__cowEliOptId__cowOptOptionName:
+        description: Option Name
+        type: string
+      cowOptlEliId__cowEliRoomId__cowRoomFloor:
+        description: Floor
+        type: string
+      cowOptlEliId__cowEliRoomId:
+        description: Eligible Options Cow roomopt room id
+        type: string
+      cowOptlBookId__cowBookRoomId__cowRoomBuiId__cowBuiAdress:
+        description: Adress
+        type: string
+      cowOptlBookId__cowBookCusId__cowCusFirstName:
+        description: First Name
+        type: string
+      cowOptlBookId__cowBookRoomId__cowRoomNumber:
+        description: Room Number
+        type: string
+      cowOptlEliId__cowEliRoomId__cowRoomBuiId__cowBuiAdress:
+        description: Adress
+        type: string
+      cowOptlBookId__cowBookCusId:
+        description: Booking Customers
+        type: string
+      cowOptlEliId__cowEliRoomId__cowRoomBuiId__cowBuiName:
+        description: Building
+        type: string
+      cowOptlEliId__cowEliRoomId__cowRoomBuiId:
+        description: Eligible Options Cow roomopt room id Buildings
+        type: string
+      cowOptlEliId__cowEliOptId:
+        description: Eligible Options Cow roomopt opt id
+        type: string
+      cowOptlEliId__cowEliOptId__cowOptDescription:
+        description: Description
+        type: string
+      cowOptlBookId__cowBookCusId__cowCusBirthDate:
+        description: Birth Date
+        type: string
+        example: yyyy-MM-dd
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowOptlBookId:
+        description: Booking
+        type: string
+  ArrayOfCowBooking:
+    type: array
+    items:
+      $ref: '#/definitions/CowBooking'
+  CowPrivateSpace:
+    type: object
+    properties:
+      cowWorSeatNumber:
+        description: Seat Number
+        type: string
+      cowWorAvailability:
+        description: Availaible
+        type: boolean
+      cowWorBuiId:
+        description: Buildings
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowWorStatus:
+        description: Status
+        type: string
+        enum:
+        - PUBLIC
+        - PRIVATE
+      cowWorBuiId__cowBuiName:
+        description: Building
+        type: string
+      cowWorBuiId__cowBuiAdress:
+        description: Buildings Adress
+        type: string
+  ArrayOfCowWorkspace:
+    type: array
+    items:
+      $ref: '#/definitions/CowWorkspace'
+  PublicationResult:
+    type: object
+    properties:
+      mime:
+        description: MIME type
+        type: string
+      content:
+        description: Content (plain text or base64 encoded)
+        type: string
+  CowBooking:
+    type: object
+    properties:
+      cowBookRoomId__cowRoomFloor:
+        description: Floor
+        type: string
+      cowBookEndingTime:
+        description: Ending Time
+        type: string
+        example: HH:mm:ss
+      cowBookCusId__cowCusFirstName:
+        description: First Name
+        type: string
+      cowBookRoomId__cowRoomBuiId:
+        description: Rooms Buildings
+        type: string
+      cowBookCusId__cowCusName:
+        description: Last Name
+        type: string
+      cowBookStatus:
+        description: Status
+        type: string
+        enum:
+        - PENDING
+        - CONFIRM
+        - CANCEL
+      cowBookDate:
+        description: Date
+        type: string
+        example: yyyy-MM-dd
+      cowBookNotDisponible:
+        description: Availability
+        type: string
+      cowBookBookingNumber:
+        description: Booking Number
+        type: integer
+      cowBookRoomId__cowRoomBuiId__cowBuiAdress:
+        description: Adress
+        type: string
+      cowBookCusId:
+        description: Customers
+        type: string
+      cowBookRoomId__cowRoomBuiId__cowBuiClosingTime:
+        description: Closing time
+        type: string
+        example: HH:mm:ss
+      cowBookCusId__cowCusPhoneNumber:
+        description: Phone number
+        type: string
+      cowBookRoomId__cowRoomNumber:
+        description: Room
+        type: string
+      cowBookCusId__cowCusMail:
+        description: E-mail adress
+        type: string
+      cowBookRoomId__cowRoomBuiId__cowBuiName:
+        description: Building
+        type: string
+      cowBookRoomId__cowRoomCapacity:
+        description: Capacity
+        type: integer
+      cowBookRoomId__cowRoomBuiId__cowBuiOpeningTime:
+        description: Opening time
+        type: string
+        example: HH:mm:ss
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowBookRoomId:
+        description: Rooms
+        type: string
+      cowBookBeginningTime:
+        description: BeginningTime
+        type: string
+        example: HH:mm:ss
+      cowBookCusId__cowCusBirthDate:
+        description: Birth Date
+        type: string
+        example: yyyy-MM-dd
+  ArrayOfCowEligibleOptions:
+    type: array
+    items:
+      $ref: '#/definitions/CowEligibleOptions'
+  PlaceData:
+    type: object
+    properties:
+      coord:
+        description: Geographical coordinates
+        type: string
+      address:
+        description: Address
+        type: string
+      row_id:
+        description: Row ID
+        type: string
+      label1:
+        description: 'Label #1'
+        type: string
+      label2:
+        description: 'Label #2'
+        type: string
+      label3:
+        description: 'Label #3'
+        type: string
+  PlaceMapData:
+    type: object
+    properties:
+      places:
+        description: Places
+        type: array
+        items:
+          $ref: '#/definitions/PlaceData'
+      name:
+        description: Name
+        type: string
+  ArrayOfCowCustomers:
+    type: array
+    items:
+      $ref: '#/definitions/CowCustomers'
+  ArrayOfCowRequest:
+    type: array
+    items:
+      $ref: '#/definitions/CowRequest'
+  Error400:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 400
+  Error401:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 401
+  Error500:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 500
+  Error403:
+    type: object
+    properties:
+      error:
+        description: Error message
+        type: string
+      status:
+        description: Error status
+        type: integer
+        enum:
+        - 403
+  ArrayOfCowOptions:
+    type: array
+    items:
+      $ref: '#/definitions/CowOptions'
+  CowCustomers:
+    type: object
+    properties:
+      cowCusName:
+        description: Last Name
+        type: string
+      cowCusPhoneNumber:
+        description: Phone number
+        type: string
+      cowCusBirthDate:
+        description: Birth Date
+        type: string
+        example: yyyy-MM-dd
+      cowCusPassword:
+        description: Password
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowCusMail:
+        description: E-mail adress
+        type: string
+      cowCusFirstName:
+        description: First Name
+        type: string
+  ArrayOfCowBuilding:
+    type: array
+    items:
+      $ref: '#/definitions/CowBuilding'
+  ArrayOfCowPrivateSpace:
+    type: array
+    items:
+      $ref: '#/definitions/CowPrivateSpace'
+  CowBuilding:
+    type: object
+    properties:
+      cowBuiPicture:
+        description: Picture
+        type: object
+      cowBuiName:
+        description: Building
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowBuiClosingTime:
+        description: Closing time
+        type: string
+        example: HH:mm:ss
+      cowBuiOpeningTime:
+        description: Opening time
+        type: string
+        example: HH:mm:ss
+      cowBuiAdress:
+        description: Adress
+        type: string
+  ArrayOfCowRoom:
+    type: array
+    items:
+      $ref: '#/definitions/CowRoom'
+  CowEligibleOptions:
+    type: object
+    properties:
+      cowEliRoomId__cowRoomNumber:
+        description: Number
+        type: string
+      cowEliRoomId__cowRoomBuiId__cowBuiName:
+        description: Nom
+        type: string
+      cowEliRoomId:
+        description: Cow roomopt room id
+        type: string
+      cowEliRoomId__cowRoomFloor:
+        description: Room floor
+        type: string
+      cowEliOptId:
+        description: Cow roomopt opt id
+        type: string
+      cowEliRoomId__cowRoomBuiId:
+        description: Cow roomopt room id Buildings
+        type: string
+      cowEliRoomId__cowRoomBuiId__cowBuiAdress:
+        description: Buildings Adress
+        type: string
+      cowEliOptId__cowOptOptionName:
+        description: Option Name
+        type: string
+      cowEliOptId__cowOptDescription:
+        description: Description
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+  ActionResult:
+    type: object
+    properties:
+      result:
+        description: Action result
+        type: string
+  TreeviewData:
+    type: object
+    properties:
+      item:
+        description: Object item with lists of linked objects' items
+        type: object
+  ArrayOfCowPublicSpace:
+    type: array
+    items:
+      $ref: '#/definitions/CowPublicSpace'
+  CowRoom:
+    type: object
+    properties:
+      cowRoomBuiId:
+        description: Buildings
+        type: string
+      cowRoomBuiId__cowBuiAdress:
+        description: Adress
+        type: string
+      cowRoomNumber:
+        description: Number
+        type: string
+      cowRoomBuiId__cowBuiName:
+        description: Building
+        type: string
+      cowRoomCapacity:
+        description: Capacity
+        type: integer
+      cowRoomFloor:
+        description: Floor
+        type: string
+      cowRoomBuiId__cowBuiClosingTime:
+        description: Closing time
+        type: string
+        example: HH:mm:ss
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowRoomBuiId__cowBuiOpeningTime:
+        description: Opening time
+        type: string
+        example: HH:mm:ss
+  CowOptions:
+    type: object
+    properties:
+      cowOptOptionName:
+        description: Option Name
+        type: string
+      cowOptDescription:
+        description: Description
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+  ArrayOfCowOptionsLine:
+    type: array
+    items:
+      $ref: '#/definitions/CowOptionsLine'
+  CowRequest:
+    type: object
+    properties:
+      cowReqWorId__cowWorAvailability:
+        description: Availaible
+        type: boolean
+      cowReqCusId:
+        description: Customers
+        type: string
+      cowReqWorId:
+        description: Workspace
+        type: string
+      cowReqWorId__cowWorBuiId__cowBuiName:
+        description: Name
+        type: string
+      cowReqWorId__cowWorBuiId__cowBuiAdress:
+        description: Adress
+        type: string
+      cowReqCusId__cowCusName:
+        description: Last Name
+        type: string
+      cowReqWorId__cowWorStatus:
+        description: Status
+        type: string
+        enum:
+        - PUBLIC
+        - PRIVATE
+      cowReqStatus:
+        description: Status
+        type: string
+        enum:
+        - WAITLIST
+        - ACCEPTED
+        - CANCELLED
+      cowReqCusId__cowCusPhoneNumber:
+        description: Phone number
+        type: string
+      cowReqWorId__cowWorBuiId:
+        description: Workspace Buildings
+        type: string
+      cowReqCusId__cowCusMail:
+        description: E-mail adress
+        type: string
+      cowReqCusId__cowCusBirthDate:
+        description: Birth Date
+        type: string
+        example: yyyy-MM-dd
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowReqCusId__cowCusFirstName:
+        description: First Name
+        type: string
+      cowReqWorId__cowWorSeatNumber:
+        description: Seat Number
+        type: string
+  CowPublicSpace:
+    type: object
+    properties:
+      cowWorSeatNumber:
+        description: Seat Number
+        type: string
+      cowWorAvailability:
+        description: Availaible
+        type: boolean
+      cowWorBuiId:
+        description: Buildings
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowWorStatus:
+        description: Status
+        type: string
+        enum:
+        - PUBLIC
+        - PRIVATE
+      cowWorBuiId__cowBuiName:
+        description: Building
+        type: string
+      cowWorBuiId__cowBuiAdress:
+        description: Buildings Adress
+        type: string
+  CowWorkspace:
+    type: object
+    properties:
+      cowWorSeatNumber:
+        description: Seat Number
+        type: string
+      cowWorAvailability:
+        description: Availaible
+        type: boolean
+      cowWorBuiId:
+        description: Buildings
+        type: string
+      row_id:
+        description: Unique technical row ID
+        type: string
+      cowWorStatus:
+        description: Status
+        type: string
+        enum:
+        - PUBLIC
+        - PRIVATE
+      cowWorBuiId__cowBuiName:
+        description: Building
+        type: string
+      cowWorBuiId__cowBuiAdress:
+        description: Buildings Adress
+        type: string
+swagger: '2.0'
+info:
+  license:
+    name: Simplicite license
+    url: http://www.simplicitesoftware.com
+  contact:
+    name: Simplicite Software
+    url: http://www.simplicitesoftware.com
+    email: contact@simplicitesoftware.com
+  description: API for module Coworking
+  title: Coworking
+  version: '0.1'
+tags:
+- name: CowBooking
+  description: Booking
+- name: CowBuilding
+  description: Buildings
+- name: CowCustomers
+  description: Customers
+- name: CowEligibleOptions
+  description: Eligible Options
+- name: CowOptions
+  description: Options
+- name: CowOptionsLine
+  description: Options line
+- name: CowPrivateSpace
+  description: Private space
+- name: CowPublicSpace
+  description: Public space
+- name: CowRequest
+  description: Requests
+- name: CowRoom
+  description: Rooms
+- name: CowWorkspace
+  description: Workspace
